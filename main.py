@@ -3,6 +3,8 @@
 
 import argparse
 import pathlib
+import os
+import mimetypes
 
 def get_argparse():
     parser = argparse.ArgumentParser(
@@ -18,6 +20,21 @@ def get_argparse():
         help='list of directories and files',
     )
     return parser
+
+
+def get_file_list(paths):
+    all_files = list()
+
+    for path in paths:
+        for root, _, files in os.walk(path):
+            for file in files:
+                full_file_name = os.path.join(root, file)
+                guess_type = mimetypes.guess_type(full_file_name)[0]
+
+                if guess_type and guess_type.startswith('text'):
+                    all_files.append(full_file_name)
+
+    return all_files
 
 if __name__ == '__main__':
     a = get_argparse().parse_args(['-h'])

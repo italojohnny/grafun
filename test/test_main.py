@@ -27,3 +27,10 @@ class TestMain(unittest.TestCase):
         with open(OUTPUT_FILE, 'r') as output_file:
             help_message = output_file.read()
             self.assertIn('help message', help_message)
+
+    def test_input_paths(self):
+        input_paths = ['test/resource/script.py']
+        parser = main.get_argparse()
+        args = parser.parse_args(input_paths)
+        paths = [str(x) for x in args.paths]
+        self.assertEqual(set(paths), set(input_paths))

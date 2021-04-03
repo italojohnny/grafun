@@ -4,6 +4,7 @@
 import unittest
 import main
 import sys
+import pathlib
 
 OUTPUT_FILE = 'output.txt'
 
@@ -34,3 +35,10 @@ class TestMain(unittest.TestCase):
         args = parser.parse_args(input_paths)
         paths = [str(x) for x in args.paths]
         self.assertEqual(set(paths), set(input_paths))
+
+
+    def test_get_file_list(self):
+        parser = main.get_argparse()
+        args = parser.parse_args()
+        all_files = main.get_file_list(args.paths)
+        self.assertTrue(all([pathlib.Path(x).is_file() for x in all_files]))

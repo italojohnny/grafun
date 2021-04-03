@@ -36,5 +36,9 @@ def get_file_list(paths):
 
     return all_files
 
+def main():
+    args = get_argparse().parse_args()
+    files = get_file_list(args.paths)
+
 if __name__ == '__main__':
-    a = get_argparse().parse_args(['-h'])
+    main()

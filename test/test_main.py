@@ -17,6 +17,9 @@ class TestMain(unittest.TestCase):
         sys.stdout.close()
 
     def test_help_message(self):
+        """
+        testa se parse gera mensagem de ajuda
+        """
         parser = main.get_argparse()
 
         try:
@@ -30,6 +33,9 @@ class TestMain(unittest.TestCase):
             self.assertIn('help message', help_message)
 
     def test_input_paths(self):
+        """
+        testa se argumento de entrada e igual ao argumento parseado
+        """
         input_paths = ['test/resource/script.py']
         parser = main.get_argparse()
         args = parser.parse_args(input_paths)
@@ -38,6 +44,9 @@ class TestMain(unittest.TestCase):
 
 
     def test_get_file_list(self):
+        """
+        testa se retornar lista de arquivos
+        """
         parser = main.get_argparse()
         args = parser.parse_args()
         all_files = main.get_file_list(args.paths)
@@ -45,6 +54,9 @@ class TestMain(unittest.TestCase):
 
 
     def test_filter_python_extension(self):
+        """
+        testa se filtra apenas arquivos python
+        """
         all_files = [
             'file.txt',
             'file.py',

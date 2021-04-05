@@ -35,9 +35,14 @@ class TestMain(unittest.TestCase):
 
     def test_input_paths(self):
         """
-        testa se argumento de entrada e igual ao argumento parseado
+        testa se argumentos de entrada sao iguais aos argumentos parseados
         """
-        input_paths = ['test/resource/script.py']
+        input_paths = [
+            'test/resource',
+            'test/resource/script0.py',
+            'test/resource/script1.py',
+            'test/resource/script2.py',
+        ]
         parser = main.get_argparse()
         args = parser.parse_args(input_paths)
         paths = [str(x) for x in args.paths]

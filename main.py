@@ -32,11 +32,16 @@ def get_file_list(paths):
     all_files = list()
 
     for path in paths:
-        for root, _, files in os.walk(path):
-            for file in files:
-                all_files.append(os.path.join(root, file))
+        if pathlib.Path(path).is_file():
+            all_files.append(path)
 
-    return filter(filter_python_extension, all_files)
+        else:
+            for root, _, files in os.walk(path):
+                for file in files:
+                    all_files.append(os.path.join(root, file))
+
+    return list(filter(filter_python_extension, all_files))
+
 
 def main():
     args = get_argparse().parse_args()

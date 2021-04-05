@@ -42,3 +42,16 @@ class TestMain(unittest.TestCase):
         args = parser.parse_args()
         all_files = main.get_file_list(args.paths)
         self.assertTrue(all([pathlib.Path(x).is_file() for x in all_files]))
+
+
+    def test_filter_python_extension(self):
+        all_files = [
+            'file.txt',
+            'file.py',
+            'file.html',
+            'file.cpp',
+            'file.c',
+        ]
+        filtered_files = set(['file.py'])
+        result = set(filter(main.filter_python_extension, all_files))
+        self.assertEqual(result, filtered_files)

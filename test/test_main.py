@@ -6,6 +6,7 @@ import main
 import sys
 import pathlib
 
+PROGRAM_NAME = 'main.py'
 OUTPUT_FILE = 'output.txt'
 
 class TestMain(unittest.TestCase):
@@ -47,10 +48,19 @@ class TestMain(unittest.TestCase):
         """
         testa se retornar lista de arquivos
         """
+        input_files = [PROGRAM_NAME]
+        input_dirs = ['test/']
+        input_paths = input_files + input_dirs
+
         parser = main.get_argparse()
-        args = parser.parse_args()
+        args = parser.parse_args(input_paths)
         all_files = main.get_file_list(args.paths)
+
+        # verifica se todos os valores sao arquivos
         self.assertTrue(all([pathlib.Path(x).is_file() for x in all_files]))
+
+        # verifica se os arquivos passados na linha de comando sao preservados
+        self.assertTrue(all([pathlib.Path(i) in all_files for i in input_files]))
 
 
     def test_filter_python_extension(self):

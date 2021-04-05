@@ -34,13 +34,9 @@ def get_file_list(paths):
     for path in paths:
         for root, _, files in os.walk(path):
             for file in files:
-                full_file_name = os.path.join(root, file)
-                guess_type = mimetypes.guess_type(full_file_name)[0]
+                all_files.append(os.path.join(root, file))
 
-                if guess_type and guess_type.startswith('text'):
-                    all_files.append(full_file_name)
-
-    return all_files
+    return filter(filter_python_extension, all_files)
 
 def main():
     args = get_argparse().parse_args()

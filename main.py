@@ -22,6 +22,12 @@ def get_argparse():
     return parser
 
 
+def filter_python_extension(file):
+    if pathlib.Path(file).suffix == '.py':
+        return True
+    return False
+
+
 def get_file_list(paths):
     all_files = list()
 

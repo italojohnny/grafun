@@ -5,7 +5,6 @@ import main
 import sys
 from test import *
 
-
 class TestMain(unittest.TestCase):
 
     def setUp(self):
@@ -79,3 +78,28 @@ class TestMain(unittest.TestCase):
         filtered_files = set(['file.py'])
         result = set(filter(main.filter_python_extension, all_files))
         self.assertEqual(result, filtered_files)
+
+
+    def test_get_relationships(self):
+        sample_code = '''
+            def funcA():
+                # print('this a comment')
+                funcB(nothing)
+
+            def funcB(paramter):
+                print('this another test')
+
+            def main():
+                print('this a test')
+                funcA()
+
+            if __name__ == '__main__':
+                main()
+        '''
+        expected = {
+            'main': ['print', 'funcA'],
+            'funcA': ['print'],
+            'funcB': ['funcA', 'print']
+        }
+        output = main.get_relationships(sample_code)
+        self.assertEqual(output, expected)

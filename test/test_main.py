@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import unittest
 import main
 import sys
-import pathlib
+from test import *
 
-PROGRAM_NAME = 'main.py'
-OUTPUT_FILE = 'output.txt'
 
 class TestMain(unittest.TestCase):
 

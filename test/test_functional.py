@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import unittest
 import subprocess
-import pathlib
 import os
+from test import *
 
-PROGRAM_NAME = 'main.py'
-EXAMPLE_FILE = 'resource/script.py'
-OUTPUT_IMAGE = 'output.png'
 
 class TestCommandLine(unittest.TestCase):
 

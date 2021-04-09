@@ -4,12 +4,23 @@
 import unittest
 import subprocess
 import pathlib
+import os
 
 PROGRAM_NAME = 'main.py'
 EXAMPLE_FILE = 'resource/script.py'
 OUTPUT_IMAGE = 'output.png'
 
 class TestCommandLine(unittest.TestCase):
+
+
+    def setUp(self):
+        self.remove_file(OUTPUT_IMAGE)
+
+
+    def remove_file(self, file_name):
+        if pathlib.Path(file_name).is_file():
+            os.remove(file_name)
+
 
     def test_help_message(self):
         # Usuario chama o programa passando o argumento '-h';

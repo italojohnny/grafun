@@ -22,6 +22,13 @@ class TestCommandLine(unittest.TestCase):
             os.remove(file_name)
 
 
+    def assertIsFile(self, name: str):
+        path = pathlib.Path(name)
+        self.assertTrue(
+            path.is_file(), 'Arquivo "{}" nao existe'.format(str(path))
+        )
+
+
     def test_help_message(self):
         # Usuario chama o programa passando o argumento '-h';
         # Programa retorna mensagem de ajuda e termina.
@@ -35,15 +42,13 @@ class TestCommandLine(unittest.TestCase):
     def test_output_image(self):
         # Usuario chama o programa passando um arquivo com funcoes:
         # Programa gera um arquivo de imagem png
-        path = pathlib.Path(EXAMPLE_FILE)
-        self.assertTrue(path.is_file())
+        self.assertIsFile(EXAMPLE_FILE)
 
         call = 'python {} {}'.format(PROGRAM_NAME, EXAMPLE_FILE)
         call = call.split()
         result = subprocess.run(call, capture_output=True)
 
-        path = pathlib.Path(OUTPUT_IMAGE)
-        self.assertTrue(path.is_file())
+        self.assertIsFile(OUTPUT_IMAGE)
 
 
 if __name__ == '__main__':

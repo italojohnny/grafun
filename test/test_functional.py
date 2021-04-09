@@ -43,11 +43,8 @@ class TestCommandLine(unittest.TestCase):
     def test_output_image(self):
         # Usuario chama o programa passando um arquivo com funcoes:
         # Programa gera um arquivo de imagem png
-        self.assertIsFile(EXAMPLE_FILE)
-
-        call = 'python {} {}'.format(PROGRAM_NAME, EXAMPLE_FILE)
+        call = 'python {} {}'.format(PROGRAM_NAME, PROGRAM_NAME)
         self.execute(call)
-
         self.assertIsFile(OUTPUT_IMAGE)
 
 

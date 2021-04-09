@@ -21,6 +21,13 @@ class TestCommandLine(unittest.TestCase):
         if pathlib.Path(file_name).is_file():
             os.remove(file_name)
 
+    def execute(self, command: str):
+        result = subprocess.run(command.split(), capture_output=True)
+        outcod = result.returncode
+        output = result.stdout.decode('utf-8')
+        outerr = result.stderr.decode('utf-8')
+        return (output, outerr, outcod)
+
 
     def assertIsFile(self, name: str):
         path = pathlib.Path(name)
@@ -33,9 +40,7 @@ class TestCommandLine(unittest.TestCase):
         # Usuario chama o programa passando o argumento '-h';
         # Programa retorna mensagem de ajuda e termina.
         call = 'python {} -h'.format(PROGRAM_NAME)
-        call = call.split()
-        result = subprocess.run(call, capture_output=True)
-        output = result.stdout.decode('utf-8')
+        output, _, _ = self.execute(call)
         self.assertIn('help', output)
 
 
@@ -45,8 +50,7 @@ class TestCommandLine(unittest.TestCase):
         self.assertIsFile(EXAMPLE_FILE)
 
         call = 'python {} {}'.format(PROGRAM_NAME, EXAMPLE_FILE)
-        call = call.split()
-        result = subprocess.run(call, capture_output=True)
+        self.execute(call)
 
         self.assertIsFile(OUTPUT_IMAGE)
 

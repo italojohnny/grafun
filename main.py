@@ -5,6 +5,7 @@ import argparse
 import pathlib
 import os
 import mimetypes
+import graphviz
 
 def get_argparse():
     parser = argparse.ArgumentParser(
@@ -46,6 +47,9 @@ def get_file_list(paths):
 def main():
     args = get_argparse().parse_args()
     files = get_file_list(args.paths)
+
+    digraph = graphviz.Digraph()
+    digraph.render(filename='output', cleanup=True, format='png')
 
 if __name__ == '__main__':
     main()

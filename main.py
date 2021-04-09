@@ -4,7 +4,6 @@
 import argparse
 import pathlib
 import os
-import mimetypes
 import graphviz
 
 def get_argparse():
